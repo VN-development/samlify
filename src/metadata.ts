@@ -59,7 +59,9 @@ export default class Metadata implements MetadataInterface {
       {
         key: 'singleLogoutService',
         localPath: ['EntityDescriptor', '~SSODescriptor', 'SingleLogoutService'],
-        attributes: ['Binding', 'Location']
+        index: ['Binding'],
+        attributePath: [],
+        attributes: ['Location']
       },
       {
         key: 'nameIDFormat',
@@ -135,10 +137,10 @@ export default class Metadata implements MetadataInterface {
   */
   public getSingleLogoutService(binding: string | undefined): string | object {
     if (isString(binding)) {
-      const bindType = namespace.binding[binding];
-      const service = this.meta.singleLogoutService.find(obj => obj.binding === bindType);
+      const bindName = namespace.binding[binding];
+      const service = this.meta.singleLogoutService[bindName];
       if (service) {
-        return service.location;
+        return service;
       }
     }
     return this.meta.singleLogoutService;
